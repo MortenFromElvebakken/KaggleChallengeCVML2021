@@ -35,6 +35,7 @@ class testInpainting():
                     label = labels[i]
                     WithinClassCorrect[label] += c[i].item()
                     WithinClassTotal[label] += 1
+
         print('Score of the classifier on the 10000 test images: %d %%' % (100 * CorrectGuesses / TotalGuesses))
         for i in range(len(self.classes)):
             print('Accuracy of %5s : %2d %%' % (

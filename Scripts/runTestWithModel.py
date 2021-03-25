@@ -8,7 +8,7 @@ from src.models.trainModel import trainInpainting
 from src.models.testModel import testInpainting
 from src.models.produceTestResults import testResultsInpainting
 from src.models.convNet import Vgg19, Vgg11
-
+import torch
 
 @click.command()
 @click.argument('args', nargs=-1)
@@ -18,24 +18,22 @@ def main(args):
     """
     #Set logger
     logger = logging.getLogger(__name__)
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    #Create model
+
     batch_Size = 32
-    vggNet = Vgg19(batch_size=batch_Size)
-    #vggNet = Vgg11(batch_size=batch_Size)
+
     #Datalayer
     DatLayer = CreateDataloaders(batch_size=batch_Size)
     trainloader, testLoader, valLoader, classes = DatLayer.getDataloaders()
+
     path = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\src'
+    modelPath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\Vgg19.pth'
 
-    #Training
-    trainingClass = trainInpainting(trainloader,vggNet, path)
-    vggNet = trainingClass.traingan()
+    model = Vgg19(batch_size=batch_Size)
+    model.load_state_dict(torch.load(modelPath))
 
-    #Testing
-    #testClass = testInpainting(valLoader, vggNet, classes)
-    #testClass.runTest()
-
+    vggNet = model.to(device)
     #Produce test results
     testResultsClass  = testResultsInpainting(testLoader,vggNet,classes)
     testResultsClass.runTest()

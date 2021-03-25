@@ -4,12 +4,16 @@ from tqdm.auto import tqdm
 import numpy as np
 import matplotlib.pyplot as plt
 import torchvision.transforms as transforms
+import os
+import glob
+from pathlib import Path
+
 
 class trainInpainting():
     def __init__(self, trainingImages, vggNet, path):
         self.training = trainingImages
         self.vggNet = vggNet
-        self.epochs = 20
+        self.epochs = 40
         self.path = path
 
     def traingan(self):
@@ -59,6 +63,8 @@ class trainInpainting():
                     print("labels " + str(labels))
                     RunningLoss = 0.0
                 i = i+1
-                #break
         #torch.save(self.vggNet.state_dict(), self.path)
+        outputPath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\Vgg19_1.pth'
+        torch.save(self.vggNet.state_dict(), outputPath)
         return self.vggNet
+

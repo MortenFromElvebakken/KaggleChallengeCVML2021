@@ -104,11 +104,13 @@ class AlbumentationImageDataset(Dataset):
             image = self.transform(image=np.array(image))['image']
             image = image/255
             image = np.float32(image)
+            image = image.transpose(2, 0, 1)
         if self.lbls is not None:
             label = self.lbls.Labels[i]-1
+            sample = {'image': image, 'label': label}
         else:
-            label = None
-        image = image.transpose(2,0,1)
+            sample = {'image': image}
+
         #image = torch.from_numpy(np.array(image).astype(np.float32)).transpose(0, 1).transpose(0, 2).contiguous() #Check rækkefølgen
-        sample = {'image': image, 'label': label}
+        #sample = {'image': image, 'label': label}
         return sample
