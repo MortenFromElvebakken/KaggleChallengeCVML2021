@@ -20,8 +20,8 @@ def main(args):
 
     #Create model
     batch_Size = 32
-    #vggNet = Vgg19(batch_size=batch_Size)
-    vggNet = Vgg11(batch_size=batch_Size)
+    vggNet = Vgg19(batch_size=batch_Size)
+    #vggNet = Vgg11(batch_size=batch_Size)
     #Datalayer
     DatLayer = CreateDataloaders(batch_size=batch_Size)
     trainloader, testLoader, valLoader, classes = DatLayer.getDataloaders()
