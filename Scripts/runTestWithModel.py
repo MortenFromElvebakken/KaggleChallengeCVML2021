@@ -8,7 +8,8 @@ from src.models.trainModel import trainInpainting
 from src.models.testModel import testInpainting
 from src.models.produceTestResults import testResultsInpainting
 from src.models.convNet import Vgg19, Vgg11
-import torch
+import torch, torchvision
+from torch import nn
 
 @click.command()
 @click.argument('args', nargs=-1)
@@ -29,9 +30,12 @@ def main(args):
 
     path = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\src'
     modelPath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\Vgg19.pth'
+    DensePath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\Densenet_1.pth'
 
-    model = Vgg19(batch_size=batch_Size)
-    model.load_state_dict(torch.load(modelPath))
+    #model = Vgg19(batch_size=batch_Size)
+    model = torchvision.models.densenet121()
+    model.classifier = nn.Linear(1024,29)
+    model.load_state_dict(torch.load(DensePath))
 
     vggNet = model.to(device)
     #Produce test results

@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+import torchvision
 
 #Der findes indbygget vgg nets, men vi bygger vores eget og træner det
 class VGGnet1ConvLayer(nn.Module):
@@ -115,3 +116,4 @@ class Vgg11(nn.Module):
         x6 = self.sixth(x5)
         # x6 = nn.Softmax(x6)
         return x6
+

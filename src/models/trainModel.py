@@ -13,7 +13,7 @@ class trainInpainting():
     def __init__(self, trainingImages, vggNet, path):
         self.training = trainingImages
         self.vggNet = vggNet
-        self.epochs = 40
+        self.epochs = 10
         self.path = path
 
     def traingan(self):
@@ -32,7 +32,7 @@ class trainInpainting():
                 nn.init.constant_(m.weight, 1)
                 nn.init.constant_(m.bias, 0)
 
-        self.vggNet = self.vggNet.apply(weights_init)
+        #self.vggNet = self.vggNet.apply(weights_init)
         self.vggNet.to(device)
 
         criterion = nn.CrossEntropyLoss().to(device)

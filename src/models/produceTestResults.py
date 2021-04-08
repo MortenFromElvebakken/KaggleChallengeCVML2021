@@ -31,17 +31,13 @@ class testResultsInpainting():
                 arr_flat = np.append(arr_flat, allLabels)
 
 
-        index = []
-        counter = 1
 
-        for i in enumerate(arr_flat):
-            index.append(counter)
-            counter = counter+1
         outputPath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Results\Vgg19Results.csv'
         arr_flat = arr_flat.astype(int)
         arr_flat = arr_flat.tolist()
         df = pd.DataFrame()
-        #df['ID'] = index
+
+
         arr_flat = [x + 1 for x in arr_flat]
         df['Label'] = arr_flat
         df.index+=1

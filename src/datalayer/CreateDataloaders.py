@@ -33,8 +33,8 @@ class CreateDataloaders():
 
         TrainDirImg = str(TrainDir + '/TrainImages')
         ValDirImg = str(ValDir + '/ValidationImages')
+        #TestDirImg = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Test\ExtraTest'
         TestDirImg = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Test\TestImages'
-
         TrainLlbs = str(TrainDir + '/trainLbls.csv')
         ValLbls = str(ValDir + '/valLbls.csv')
 
@@ -59,7 +59,7 @@ class CreateDataloaders():
                                                         drop_last=True, pin_memory=True) #,shuffle = true
         self.test_data_loader = torch.utils.data.DataLoader(test_data,
                                                        batch_size=self.batch_size,
-                                                       shuffle=True, num_workers=self.num_workers,
+                                                       shuffle=False, num_workers=self.num_workers,
                                                        drop_last=True, pin_memory=True)
 
         self.val_data_loader = torch.utils.data.DataLoader(val_data,
