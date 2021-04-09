@@ -36,7 +36,7 @@ class trainInpainting():
         self.vggNet.to(device)
 
         criterion = nn.CrossEntropyLoss().to(device)
-        optimizer = torch.optim.SGD(self.vggNet.parameters(), lr=0.01, momentum=0.9, weight_decay=5e-4)  # torch.optim.Adam(self.vggNet.parameters(), lr=0.001, betas=(0.9,0.99))
+        optimizer = torch.optim.SGD(self.vggNet.parameters(), lr=0.01, momentum=0.9, weight_decay=5e-6)  # torch.optim.Adam(self.vggNet.parameters(), lr=0.001, betas=(0.9,0.99))
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min')
         #optimizer = torch.optim.Adam(self.vggNet.parameters(), lr=0.005, betas=(0.9, 0.99))
 
@@ -57,15 +57,15 @@ class trainInpainting():
                 optimizer.step()
 
                 RunningLoss += loss.item()
-                if i % 20 == 19:  # print every 2000 mini-batches
+                if i % 200 == 199:  # print every 2000 mini-batches
                     print('[%d, %5d] loss: %.3f' %
-                          (epoch + 1, i + 1, RunningLoss / 20))
+                          (epoch + 1, i + 1, RunningLoss / 200))
                     print("outputs " + str(torch.max(outputs.data, 1)))
                     print("labels " + str(labels))
                     RunningLoss = 0.0
                 i = i+1
         #torch.save(self.vggNet.state_dict(), self.path)
-        outputPath = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/KaggleChallengeCVML2021/data/finishedModels/DenseNet_Epoch200.pth'
+        outputPath = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/KaggleChallengeCVML2021/models/DenseNet_Epoch200.pth'
         torch.save(self.vggNet.state_dict(), outputPath)
         return self.vggNet
 

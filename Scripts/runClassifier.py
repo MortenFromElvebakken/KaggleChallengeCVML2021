@@ -32,15 +32,15 @@ def main(args):
     #Datalayer
     DatLayer = CreateDataloaders(batch_size=batch_Size)
     trainloader, testLoader, valLoader, classes = DatLayer.getDataloaders()
-    path = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\src'
+    path = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision\KaggleChallengeCVML2021\src'
 
     #Training
     trainingClass = trainInpainting(trainloader,model, path, epochs)
     model = trainingClass.traingan()
 
     #Testing
-    testClass = testInpainting(valLoader, model, classes)
-    testClass.runTest()
+    #testClass = testInpainting(valLoader, model, classes)
+    #testClass.runTest()
 
     #Produce test results
     testResultsClass  = testResultsInpainting(testLoader,model,classes)
