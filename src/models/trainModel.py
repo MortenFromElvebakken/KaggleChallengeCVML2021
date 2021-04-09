@@ -10,10 +10,10 @@ from pathlib import Path
 
 
 class trainInpainting():
-    def __init__(self, trainingImages, vggNet, path):
+    def __init__(self, trainingImages, vggNet, path, epochs):
         self.training = trainingImages
         self.vggNet = vggNet
-        self.epochs = 10
+        self.epochs = epochs
         self.path = path
 
     def traingan(self):
@@ -36,7 +36,8 @@ class trainInpainting():
         self.vggNet.to(device)
 
         criterion = nn.CrossEntropyLoss().to(device)
-        optimizer = torch.optim.SGD(self.vggNet.parameters(), lr=0.0005, momentum=0.9, weight_decay=5e-4)  # torch.optim.Adam(self.vggNet.parameters(), lr=0.001, betas=(0.9,0.99))
+        optimizer = torch.optim.SGD(self.vggNet.parameters(), lr=0.01, momentum=0.9, weight_decay=5e-4)  # torch.optim.Adam(self.vggNet.parameters(), lr=0.001, betas=(0.9,0.99))
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min')
         #optimizer = torch.optim.Adam(self.vggNet.parameters(), lr=0.005, betas=(0.9, 0.99))
 
         train_loss = 0.0
@@ -48,7 +49,7 @@ class trainInpainting():
 
                 batchOfImages = batchOfSamples['image'].to(device)
                 labels = batchOfSamples['label'].to(device)
-                optimizer.zero_grad()
+                scheduler.zero_grad()
 
                 outputs = self.vggNet(batchOfImages)
                 loss = criterion(outputs, labels)
@@ -64,7 +65,7 @@ class trainInpainting():
                     RunningLoss = 0.0
                 i = i+1
         #torch.save(self.vggNet.state_dict(), self.path)
-        outputPath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\Vgg19_1.pth'
+        outputPath = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/KaggleChallengeCVML2021/data/finishedModels/DenseNet_Epoch200.pth'
         torch.save(self.vggNet.state_dict(), outputPath)
         return self.vggNet
 

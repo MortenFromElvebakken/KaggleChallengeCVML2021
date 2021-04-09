@@ -22,7 +22,8 @@ def main(args):
     logger = logging.getLogger(__name__)
 
     #Create model
-    batch_Size = 32
+    batch_Size = 20
+    epochs = 200
     #vggNet = Vgg19(batch_size=batch_Size)
     densenet = torchvision.models.densenet121(pretrained=True)
     densenet.classifier = nn.Linear(1024,29)
@@ -34,7 +35,7 @@ def main(args):
     path = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\src'
 
     #Training
-    trainingClass = trainInpainting(trainloader,model, path)
+    trainingClass = trainInpainting(trainloader,model, path, epochs)
     model = trainingClass.traingan()
 
     #Testing
