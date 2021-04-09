@@ -28,14 +28,14 @@ class CreateDataloaders():
             #A.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
         ])
 
-        #TrainDir = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Train'
-        #ValDir = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Validation'
+        TrainDir = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Train'
+        ValDir = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Validation'
         # TestDirImg = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Test\ExtraTest'
-        #TestDirImg = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Test\TestImages'
+        TestDirImg = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Test\TestImages'
 
-        TrainDir = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_VisionData/data/Train'
-        ValDir = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_VisionData/data/Validation'
-        TestDirImg = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_VisionData/data/Test/TestImages'
+        #TrainDir = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Train'
+        #ValDir = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Validation'
+        #TestDirImg = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Test/TestImages'
 
         TrainDirImg = str(TrainDir + '/TrainImages')
         ValDirImg = str(ValDir + '/ValidationImages')
