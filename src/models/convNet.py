@@ -18,7 +18,7 @@ class VGGnet1ConvLayer(nn.Module):
         return x
 
 class VGGnet2ConvLayer(nn.Module):
-    def __init__(self, in_size, out_size, kernels, normalize=True):
+    def __init__(self, in_size, out_size, kernels):
         super(VGGnet2ConvLayer, self).__init__()
         self.conv = nn.Conv2d(in_size,out_size,kernels,stride=1, padding=1)
         self.conv2 = nn.Conv2d(out_size,out_size,kernels,stride=1, padding=1)
@@ -34,7 +34,7 @@ class VGGnet2ConvLayer(nn.Module):
         return x
 
 class VGGnet4ConvLayer(nn.Module):
-    def __init__(self, in_size, out_size, kernels, normalize=True):
+    def __init__(self, in_size, out_size, kernels):
         super(VGGnet4ConvLayer, self).__init__()
         self.conv = nn.Conv2d(in_size,out_size,kernels,stride=1, padding=1)
         self.conv2 = nn.Conv2d(out_size,out_size,kernels,stride=1, padding=1)
@@ -90,9 +90,8 @@ class Vgg19(nn.Module):
         x3 = self.third(x2)
         x4 = self.fourth(x3)
         x5 = self.fifth(x4)
-        x5 = x5.view(self.batchSize, -1)  # Ret til batch size tal hvis vi ændrer batch size
+        x5 = x5.view(self.batchSize, -1)
         x6 = self.sixth(x5)
-        #x6 = nn.Softmax(x6)
         return x6
 
 class Vgg11(nn.Module):

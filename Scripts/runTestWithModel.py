@@ -30,17 +30,20 @@ def main(args):
 
     path = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\src'
     modelPath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\Vgg19.pth'
-    DensePath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\Densenet_1.pth'
+    DensePath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\DenseNet161_200Epochs.pth'
 
     #model = Vgg19(batch_size=batch_Size)
-    model = torchvision.models.densenet121()
-    model.classifier = nn.Linear(1024,29)
+    #model.load_state_dict(torch.load(modelPath))
+    model = torchvision.models.densenet161()
+    model.classifier = nn.Linear(2208,29)
     model.load_state_dict(torch.load(DensePath))
-
-    vggNet = model.to(device)
+    model = model.to(device)
+    #vggNet = model.to(device)
     #Produce test results
-    testResultsClass  = testResultsInpainting(testLoader,vggNet,classes)
-    testResultsClass.runTest()
+    #testResultsClass  = testResultsInpainting(testLoader,vggNet,classes)
+    #testResultsClass.runTest()
+    testClass = testInpainting(valLoader, model, classes)
+    testClass.runTest()
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

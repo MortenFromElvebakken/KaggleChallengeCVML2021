@@ -23,10 +23,12 @@ def main(args):
 
     #Create model
     batch_Size = 20
-    epochs = 200
+    epochs = 20
     #vggNet = Vgg19(batch_size=batch_Size)
     densenet = torchvision.models.densenet121(pretrained=True)
+    #densenet.classifier = nn.Linear(2208,29)
     densenet.classifier = nn.Linear(1024,29)
+
     #vggNet = Vgg11(batch_size=batch_Size)
     model = densenet
     #Datalayer

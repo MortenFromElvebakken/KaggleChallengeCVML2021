@@ -12,6 +12,7 @@ import os
 
 
 #inspireret fra https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html?fbclid=IwAR3UzylpXP1ob0MZd-Ic3BZZKfs0zIcgqaxGl6qtjqw6M3F05V1ufpmW5j8
+#inspireret fra https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html?fbclid=IwAR3UzylpXP1ob0MZd-Ic3BZZKfs0zIcgqaxGl6qtjqw6M3F05V1ufpmW5j8
 class CreateDataloaders():
     def __init__(self, normalize=True, batch_size=4, num_workers=2):
         self.normalize = normalize
@@ -21,21 +22,21 @@ class CreateDataloaders():
         train_transform = A.Compose([
             A.transforms.HorizontalFlip(p=0.5),
             A.transforms.VerticalFlip(p=0.5),
-            #A.transforms.Normalize((0.57, 0.94, 0.45), (0.15, 0.17, 0.10))
+            A.transforms.Normalize((0.57, 0.94, 0.45), (0.15, 0.17, 0.10))
         ]) #RGB mean ( 0.57,0.94,0.45) #rgb STD (0.15,0.17,0.10)
         test_transform = A.Compose([
-            #A.transforms.Normalize((0.57, 0.94, 0.45), (0.15, 0.17, 0.10))
+            A.transforms.Normalize((0.57, 0.94, 0.45), (0.15, 0.17, 0.10))
             #A.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
         ])
 
-        TrainDir = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Train'
-        ValDir = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Validation'
+        #TrainDir = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Train'
+        #ValDir = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Validation'
         # TestDirImg = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Test\ExtraTest'
-        TestDirImg = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Test\TestImages'
+        #TestDirImg = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Test\TestImages'
 
-        #TrainDir = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Train'
-        #ValDir = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Validation'
-        #TestDirImg = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Test/TestImages'
+        TrainDir = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Train'
+        ValDir = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Validation'
+        TestDirImg = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Test/TestImages'
 
         TrainDirImg = str(TrainDir + '/TrainImages')
         ValDirImg = str(ValDir + '/ValidationImages')
@@ -108,7 +109,7 @@ class AlbumentationImageDataset(Dataset):
         #Check if float
         if self.transform:
             image = self.transform(image=np.array(image))['image']
-            image = image/255
+            #image = image/255
             image = np.float32(image)
             image = image.transpose(2, 0, 1)
         if self.lbls is not None:

@@ -30,8 +30,6 @@ class testResultsInpainting():
                 allLabels = allLabels
                 arr_flat = np.append(arr_flat, allLabels)
 
-
-
         #outputPath = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/KaggleChallengeCVML2021/Results/DensenetResults.csv'
         outputPath = r'C:/Users/Morten From/PycharmProjects/KaggleChallengeCVML2021/src/Results/DensenetResults.csv'
 
