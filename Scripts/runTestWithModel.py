@@ -30,7 +30,7 @@ def main(args):
 
     path = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\src'
     modelPath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\Vgg19.pth'
-    DensePath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\DenseNet161_200Epochs.pth'
+    DensePath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\DenseNet161350EpochsLR_norm.pth'
 
     #model = Vgg19(batch_size=batch_Size)
     #model.load_state_dict(torch.load(modelPath))
@@ -42,7 +42,7 @@ def main(args):
     #Produce test results
     #testResultsClass  = testResultsInpainting(testLoader,vggNet,classes)
     #testResultsClass.runTest()
-    testClass = testInpainting(valLoader, model, classes)
+    testClass = testInpainting(trainloader, model, classes)
     testClass.runTest()
 
 if __name__ == '__main__':

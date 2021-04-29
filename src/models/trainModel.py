@@ -10,8 +10,9 @@ from pathlib import Path
 
 
 class trainInpainting():
-    def __init__(self, trainingImages, vggNet, path, epochs):
+    def __init__(self, trainingImages, validImages, vggNet, path, epochs):
         self.training = trainingImages
+        self.valid = validImages
         self.vggNet = vggNet
         self.epochs = epochs
         self.path = path
@@ -41,8 +42,11 @@ class trainInpainting():
         # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min')
         # optimizer = torch.optim.Adam(self.vggNet.parameters(), lr=0.005, betas=(0.9, 0.99))
 
+        runningCounter = 0
         for epoch in range(self.epochs):
             # Dataloader returns the batches
+            train_loss_running = 0.0
+            valid_loss_running = 0.0
             for batchOfSamples in tqdm(self.training, leave=True, disable=True):
 
                 batchOfImages = batchOfSamples['image'].to(device)
@@ -52,6 +56,7 @@ class trainInpainting():
                 outputs = self.vggNet(batchOfImages)
                 loss = criterion(outputs, labels)
                 loss.backward()
+                train_loss_running =+ loss
                 optimizer.step()
                 if epoch < 150:
                     lr = 1e-1
@@ -65,8 +70,27 @@ class trainInpainting():
                     lr = 1e-5
                 for param_group in optimizer.param_groups:
                     param_group['lr'] = lr
+            #Indsæt validation check her
+            #laver en der tæller op, og hvis valid loss har været højere end training loss 5 epoker i streg,
+            #så gemmer den model og breaker loop
+            with torch.no_grad():
+                for batchOfSamples in tqdm(self.valid, leave=True, disable=True):
+                    batchOfImages = batchOfSamples['image'].to(device)
+                    labels = batchOfSamples['label'].to(device)
+                    optimizer.zero_grad()
+                    outputs = self.vggNet(batchOfImages)
+                    validLoss = criterion(outputs,labels)
+                    valid_loss_running =+ validLoss
 
-        # torch.save(self.vggNet.state_dict(), self.path)
-        outputPath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\DenseNet161_350EpochsLR.pth'
+                epoch_loss_train = train_loss_running / len(self.training)
+                epoch_loss_val = valid_loss_running / len(self.valid)
+                if epoch_loss_train < epoch_loss_val:
+                    runningCounter = 0
+                else:
+                    runningCounter = runningCounter + 1
+                if runningCounter == 4:
+                    break
+
+        outputPath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\DenseNet161_ValidLossBreak.pth'
         torch.save(self.vggNet.state_dict(), outputPath)
         return self.vggNet
