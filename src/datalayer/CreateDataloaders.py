@@ -18,7 +18,7 @@ class CreateDataloaders():
         self.normalize = normalize
         self.batch_size = batch_size
         self.num_workers = num_workers
-
+        #Remove .transforms if on collab.
         train_transform = A.Compose([
             A.transforms.HorizontalFlip(p=0.5),
             A.transforms.VerticalFlip(p=0.5),
@@ -34,6 +34,12 @@ class CreateDataloaders():
         #TestDirImg = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Test\ExtraTest'
         TestDirImg = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\Test\TestImages'
 
+        #CoLab
+        #TrainDir = r'/content/drive/MyDrive/Colab Notebooks/Dataset/Train'
+        #ValDir = r'/content/drive/MyDrive/Colab Notebooks/Dataset/Validation'
+        #TestDirImg = r'/content/drive/MyDrive/Colab Notebooks/Dataset/Test/TestImages'
+
+        #Server poly on AU
         #TrainDir = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Train'
         #ValDir = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Validation'
         #TestDirImg = r'/workspace/CV_Jacob/Kaggle_Challenge_Computer_Vision/Data/Test/TestImages'

@@ -3,6 +3,7 @@ import click
 import sys
 import os
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+#If on collab, add sys.path.append('/content/KaggleChallengeCVML2021)
 from src.datalayer.CreateDataloaders import CreateDataloaders
 from src.models.trainModel import trainInpainting
 from src.models.testModel import testInpainting

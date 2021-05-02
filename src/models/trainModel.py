@@ -47,6 +47,7 @@ class trainInpainting():
             # Dataloader returns the batches
             train_loss_running = 0.0
             valid_loss_running = 0.0
+            print("epoch started:" + str(epoch))
             for batchOfSamples in tqdm(self.training, leave=True, disable=True):
 
                 batchOfImages = batchOfSamples['image'].to(device)
