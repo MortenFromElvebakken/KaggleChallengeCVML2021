@@ -91,6 +91,10 @@ class trainInpainting():
                     runningCounter = runningCounter + 1
                 if runningCounter == 4:
                     break
+            if epoch % 50 == 0:
+                epochstring = r'DenseNet' + str(epoch) + '.pth'
+                outputPath = r'/content/drive/MyDrive/Colab Notebooks/Results/' + epochstring
+                torch.save(self.vggNet.state_dict(), outputPath)
 
         outputPath = r'C:\Users\Morten From\PycharmProjects\KaggleChallengeCVML2021\data\finishedModels\DenseNet161_ValidLossBreak.pth'
         torch.save(self.vggNet.state_dict(), outputPath)
