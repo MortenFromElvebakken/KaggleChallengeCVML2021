@@ -56,7 +56,7 @@ class trainInpainting():
                 outputs = self.vggNet(batchOfImages)
                 loss = criterion(outputs, labels)
                 loss.backward()
-                train_loss_running =+ loss
+                train_loss_running = train_loss_running + loss
                 optimizer.step()
                 if epoch < 150:
                     lr = 1e-1
@@ -80,7 +80,7 @@ class trainInpainting():
                     optimizer.zero_grad()
                     outputs = self.vggNet(batchOfImages)
                     validLoss = criterion(outputs,labels)
-                    valid_loss_running =+ validLoss
+                    valid_loss_running = valid_loss_running + validLoss
 
                 epoch_loss_train = train_loss_running / len(self.training)
                 epoch_loss_val = valid_loss_running / len(self.valid)
